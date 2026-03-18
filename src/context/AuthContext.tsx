@@ -25,7 +25,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   const login = (email: string, password: string) => {
-    // Simple mock login, password is "admin"
     if (password === 'admin' && email) {
       // Extract a display name from the email
       const name = email.split('@')[0].replace(/[^a-zA-Z0-9]/g, ' ');

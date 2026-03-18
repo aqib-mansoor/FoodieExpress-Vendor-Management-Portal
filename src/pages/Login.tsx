@@ -119,21 +119,14 @@ export function Login() {
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             
-            {/* Saved Account View (Local Storage Demo) */}
+            {/* Saved Account View */}
             {showSavedAccount && savedEmail ? (
-              <div className="bg-gradient-to-br from-orange-50 to-white border border-orange-200 rounded-2xl p-6 mb-6 shadow-sm relative overflow-hidden group">
-                <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
-                  <Database className="w-16 h-16 text-orange-600" />
-                </div>
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6 shadow-sm relative overflow-hidden group">
                 <div className="flex flex-col items-center text-center relative z-10">
-                  <div className="w-20 h-20 bg-white border-4 border-orange-100 text-orange-600 rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-sm">
+                  <div className="w-20 h-20 bg-orange-50 border-4 border-orange-100 text-orange-600 rounded-full flex items-center justify-center text-3xl font-bold mb-4 shadow-sm">
                     {savedEmail.charAt(0).toUpperCase()}
                   </div>
                   <h3 className="text-gray-900 font-bold text-xl mb-1">{savedEmail}</h3>
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-orange-700 bg-orange-100/80 px-3 py-1.5 rounded-full mt-2 border border-orange-200">
-                    <Database className="w-3.5 h-3.5" />
-                    <span>Data loaded from Local Storage</span>
-                  </div>
                   <button 
                     type="button" 
                     onClick={handleUseAnotherAccount}
@@ -160,7 +153,7 @@ export function Login() {
                     autoComplete="email"
                     required
                     className="block w-full rounded-xl border-0 py-3 pl-11 pr-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 transition-all bg-gray-50 focus:bg-white"
-                    placeholder="you@example.com"
+                    placeholder="name@company.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -190,7 +183,7 @@ export function Login() {
                     autoComplete="current-password"
                     required
                     className="block w-full rounded-xl border-0 py-3 pl-11 pr-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 transition-all bg-gray-50 focus:bg-white"
-                    placeholder="Enter 'admin'"
+                    placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -210,7 +203,7 @@ export function Login() {
                   onChange={(e) => setRememberMe(e.target.checked)}
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 cursor-pointer">
-                  Remember me on this device (saves to local storage)
+                  Remember me on this device
                 </label>
               </div>
             )}

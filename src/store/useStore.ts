@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Vendor, Product, Order, Review, Staff, Payout } from '../types';
-import { demoVendors, demoProducts, demoOrders, demoReviews, demoStaff, demoPayouts } from './demoData';
+import { initialVendors, initialProducts, initialOrders, initialReviews, initialStaff, initialPayouts } from './initialData';
 
 interface StoreState {
   vendors: Vendor[];
@@ -26,19 +26,19 @@ interface StoreState {
   
   addStaff: (staff: Omit<Staff, 'id' | 'vendorId'>) => void;
   
-  resetToDemoData: () => void;
+  resetToInitialData: () => void;
   clearAllData: () => void;
 }
 
 export const useStore = create<StoreState>()(
   persist(
     (set, get) => ({
-      vendors: demoVendors,
-      products: demoProducts,
-      orders: demoOrders,
-      reviews: demoReviews,
-      staff: demoStaff,
-      payouts: demoPayouts,
+      vendors: initialVendors,
+      products: initialProducts,
+      orders: initialOrders,
+      reviews: initialReviews,
+      staff: initialStaff,
+      payouts: initialPayouts,
       currentVendorId: null,
 
       login: (email, password) => {
@@ -126,14 +126,14 @@ export const useStore = create<StoreState>()(
         set((state) => ({ staff: [...state.staff, newStaff] }));
       },
 
-      resetToDemoData: () => {
+      resetToInitialData: () => {
         set({
-          vendors: demoVendors,
-          products: demoProducts,
-          orders: demoOrders,
-          reviews: demoReviews,
-          staff: demoStaff,
-          payouts: demoPayouts,
+          vendors: initialVendors,
+          products: initialProducts,
+          orders: initialOrders,
+          reviews: initialReviews,
+          staff: initialStaff,
+          payouts: initialPayouts,
           currentVendorId: null,
         });
       },

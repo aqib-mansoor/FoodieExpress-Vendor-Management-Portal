@@ -8,13 +8,13 @@ const DB_FILE = path.join(process.cwd(), "db.json");
 // Default mock data
 const defaultData = {
   products: [
-    { id: "PRD-001", name: "Classic Cheeseburger", category: "Burgers", price: 1299, stock: 45, status: "Active" },
-    { id: "PRD-002", name: "Double Bacon Burger", category: "Burgers", price: 1699, stock: 30, status: "Active" },
-    { id: "PRD-003", name: "Spicy Chicken Sandwich", category: "Sandwiches", price: 1450, stock: 15, status: "Low Stock" },
-    { id: "PRD-004", name: "Veggie Delight", category: "Vegetarian", price: 1199, stock: 50, status: "Active" },
-    { id: "PRD-005", name: "Large Fries", category: "Sides", price: 499, stock: 100, status: "Active" },
-    { id: "PRD-006", name: "Onion Rings", category: "Sides", price: 599, stock: 0, status: "Out of Stock" },
-    { id: "PRD-007", name: "Vanilla Milkshake", category: "Beverages", price: 650, stock: 20, status: "Active" },
+    { id: "PRD-001", name: "Classic Cheeseburger", category: "Burgers", price: 1299, stock: 45, status: "Active", images: ["https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500&auto=format&fit=crop"] },
+    { id: "PRD-002", name: "Double Bacon Burger", category: "Burgers", price: 1699, stock: 30, status: "Active", images: ["https://images.unsplash.com/photo-1553979459-d2229ba7433b?q=80&w=500&auto=format&fit=crop"] },
+    { id: "PRD-003", name: "Spicy Chicken Sandwich", category: "Sandwiches", price: 1450, stock: 15, status: "Low Stock", images: ["https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=500&auto=format&fit=crop"] },
+    { id: "PRD-004", name: "Veggie Delight", category: "Vegetarian", price: 1199, stock: 50, status: "Active", images: ["https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=500&auto=format&fit=crop"] },
+    { id: "PRD-005", name: "Large Fries", category: "Sides", price: 499, stock: 100, status: "Active", images: ["https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=500&auto=format&fit=crop"] },
+    { id: "PRD-006", name: "Onion Rings", category: "Sides", price: 599, stock: 0, status: "Out of Stock", images: ["https://images.unsplash.com/photo-1639024471283-03518883511d?q=80&w=500&auto=format&fit=crop"] },
+    { id: "PRD-007", name: "Vanilla Milkshake", category: "Beverages", price: 650, stock: 20, status: "Active", images: ["https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=500&auto=format&fit=crop"] },
   ],
   orders: [
     { id: "ORD-1023", customer: "Ali Khan", date: "2023-10-25T10:30:00", total: 1450, status: "Pending", items: 3 },

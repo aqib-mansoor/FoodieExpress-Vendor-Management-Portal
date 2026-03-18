@@ -1,6 +1,6 @@
 import { Vendor, Product, Order, Review, Staff, Payout } from '../types';
 
-export const demoVendors: Vendor[] = [
+export const initialVendors: Vendor[] = [
   {
     id: 'v1',
     storeName: 'TechHut',
@@ -59,7 +59,7 @@ export const demoVendors: Vendor[] = [
   },
 ];
 
-export const demoProducts: Product[] = [
+export const initialProducts: Product[] = [
   {
     id: 'p1',
     vendorId: 'v1',
@@ -117,7 +117,7 @@ export const demoProducts: Product[] = [
   },
 ];
 
-export const demoOrders: Order[] = [
+export const initialOrders: Order[] = [
   {
     id: 'o1',
     vendorId: 'v3',
@@ -144,7 +144,7 @@ export const demoOrders: Order[] = [
   },
 ];
 
-export const demoReviews: Review[] = [
+export const initialReviews: Review[] = [
   {
     id: 'r1',
     vendorId: 'v3',
@@ -156,7 +156,7 @@ export const demoReviews: Review[] = [
   },
 ];
 
-export const demoStaff: Staff[] = [
+export const initialStaff: Staff[] = [
   {
     id: 's1',
     vendorId: 'v3',
@@ -167,7 +167,7 @@ export const demoStaff: Staff[] = [
   },
 ];
 
-export const demoPayouts: Payout[] = [
+export const initialPayouts: Payout[] = [
   {
     id: 'po1',
     vendorId: 'v3',
