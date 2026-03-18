@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/Card";
 import { DollarSign, ShoppingBag, TrendingUp, Users, AlertTriangle } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { dataService } from "../services/dataService";
 
 const data = [
-  { name: "Jan", total: Math.floor(Math.random() * 500000) + 100000 },
-  { name: "Feb", total: Math.floor(Math.random() * 500000) + 100000 },
-  { name: "Mar", total: Math.floor(Math.random() * 500000) + 100000 },
-  { name: "Apr", total: Math.floor(Math.random() * 500000) + 100000 },
-  { name: "May", total: Math.floor(Math.random() * 500000) + 100000 },
-  { name: "Jun", total: Math.floor(Math.random() * 500000) + 100000 },
-  { name: "Jul", total: Math.floor(Math.random() * 500000) + 100000 },
+  { name: "Jan", total: 450000 },
+  { name: "Feb", total: 520000 },
+  { name: "Mar", total: 480000 },
+  { name: "Apr", total: 610000 },
+  { name: "May", total: 590000 },
+  { name: "Jun", total: 670000 },
+  { name: "Jul", total: 720000 },
 ];
 
 interface RecentOrder {
@@ -37,8 +38,7 @@ export function Dashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch('/api/dashboard');
-      const data = await response.json();
+      const data = await dataService.getDashboard();
       setRecentOrders(data.recentOrders);
       setLowStockItems(data.lowStockItems);
     } catch (error) {

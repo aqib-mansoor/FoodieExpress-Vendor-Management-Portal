@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Camera, Save, User, AlertCircle } from "lucide-react";
+import { dataService } from "../services/dataService";
 
 interface SettingsData {
   storeName: string;
@@ -38,8 +39,7 @@ export function Settings() {
 
   const fetchSettings = async () => {
     try {
-      const response = await fetch('/api/settings');
-      const data = await response.json();
+      const data = await dataService.getSettings();
       setSettings(data);
     } catch (error) {
       console.error('Error fetching settings:', error);
@@ -51,14 +51,7 @@ export function Settings() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const response = await fetch('/api/settings', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(settings),
-      });
-      const data = await response.json();
+      const data = await dataService.updateSettings(settings);
       setSettings(data);
       setAlertModal({ isOpen: true, message: "Settings saved successfully!", type: 'success' });
     } catch (error) {

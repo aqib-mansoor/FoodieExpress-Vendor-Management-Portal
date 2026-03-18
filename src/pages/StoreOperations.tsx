@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/Card";
 import { Button } from "@/src/components/ui/Button";
 import { Clock, MapPin, Power, Save, CreditCard } from "lucide-react";
+import { dataService } from "../services/dataService";
 
 interface OperationsData {
   isOpen: boolean;
@@ -22,8 +23,7 @@ export function StoreOperations() {
 
   const fetchOperations = async () => {
     try {
-      const response = await fetch('/api/operations');
-      const data = await response.json();
+      const data = await dataService.getOperations();
       setOperations(data);
     } catch (error) {
       console.error('Error fetching operations:', error);
@@ -37,11 +37,7 @@ export function StoreOperations() {
     const newOps = { ...operations, ...updates };
     setOperations(newOps);
     try {
-      await fetch('/api/operations', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newOps),
-      });
+      await dataService.updateOperations(newOps);
     } catch (error) {
       console.error('Error updating operations:', error);
     }

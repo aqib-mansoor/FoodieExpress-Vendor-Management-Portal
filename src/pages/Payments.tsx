@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/src/components/ui/Badge";
 import { Button } from "@/src/components/ui/Button";
 import { ArrowDownToLine, CreditCard, DollarSign, Wallet, AlertCircle } from "lucide-react";
+import { dataService } from "../services/dataService";
 
 interface Transaction {
   id: string;
@@ -24,8 +25,7 @@ export function Payments() {
 
   const fetchTransactions = async () => {
     try {
-      const response = await fetch('/api/payments');
-      const data = await response.json();
+      const data = await dataService.getPayments();
       setTransactions(data);
     } catch (error) {
       console.error('Error fetching transactions:', error);

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/Ca
 import { Button } from "@/src/components/ui/Button";
 import { Badge } from "@/src/components/ui/Badge";
 import { Flag, MessageSquareReply, Star, X, AlertCircle } from "lucide-react";
+import { dataService } from "../services/dataService";
 
 interface Review {
   id: number;
@@ -28,8 +29,7 @@ export function Reviews() {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch('/api/reviews');
-      const data = await response.json();
+      const data = await dataService.getReviews();
       setReviews(data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -43,12 +43,7 @@ export function Reviews() {
     if (!replyingTo) return;
 
     try {
-      const response = await fetch(`/api/reviews/${replyingTo.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: "Replied" })
-      });
-      const updated = await response.json();
+      const updated = await dataService.updateReview(replyingTo.id, { status: "Replied" });
       setReviews(reviews.map(r => r.id === updated.id ? updated : r));
       setReplyingTo(null);
       setReplyText("");
@@ -64,7 +59,7 @@ export function Reviews() {
   const confirmReport = async () => {
     if (confirmModal.reviewId === null) return;
     try {
-      await fetch(`/api/reviews/${confirmModal.reviewId}`, { method: 'DELETE' });
+      await dataService.deleteReview(confirmModal.reviewId);
       setReviews(reviews.filter(r => r.id !== confirmModal.reviewId));
     } catch (error) {
       console.error('Error reporting review:', error);

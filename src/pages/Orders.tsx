@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/src/components/ui/Badge";
 import { Button } from "@/src/components/ui/Button";
 import { Eye, Printer, Search, Filter, MessageSquare } from "lucide-react";
+import { dataService } from "../services/dataService";
 
 interface Order {
   id: string;
@@ -38,8 +39,7 @@ export function Orders() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('/api/orders');
-      const data = await response.json();
+      const data = await dataService.getOrders();
       setOrders(data);
     } catch (error) {
       console.error('Error fetching orders:', error);

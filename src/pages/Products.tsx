@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/src/components/ui/Badge";
 import { Button } from "@/src/components/ui/Button";
 import { Edit, Plus, Search, Trash2, Upload, Zap, X, AlertCircle, ChevronLeft, ChevronRight, Eye, Image as ImageIcon } from "lucide-react";
+import { dataService } from "../services/dataService";
 
 interface Product {
   id: string;
@@ -85,8 +86,7 @@ export function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('/api/products');
-      const data = await response.json();
+      const data = await dataService.getProducts();
       setProducts(data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -102,7 +102,7 @@ export function Products() {
       message: "Are you sure you want to delete this product? This action cannot be undone.",
       onConfirm: async () => {
         try {
-          await fetch(`/api/products/${id}`, { method: 'DELETE' });
+          await dataService.deleteProduct(id);
           setProducts(products.filter(p => p.id !== id));
           setConfirmModal(prev => ({ ...prev, isOpen: false }));
         } catch (error) {
@@ -187,20 +187,10 @@ export function Products() {
     e.preventDefault();
     try {
       if (editingProduct) {
-        const response = await fetch(`/api/products/${editingProduct.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const updated = await response.json();
+        const updated = await dataService.updateProduct(editingProduct.id, formData);
         setProducts(products.map(p => p.id === updated.id ? updated : p));
       } else {
-        const response = await fetch('/api/products', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const created = await response.json();
+        const created = await dataService.addProduct(formData);
         setProducts([...products, created]);
       }
       setIsModalOpen(false);
@@ -220,12 +210,7 @@ export function Products() {
           const activeProducts = products.filter(p => p.status === "Active");
           const updatedProducts = await Promise.all(activeProducts.map(async (p) => {
             const discountedPrice = Math.round(p.price * 0.8);
-            const response = await fetch(`/api/products/${p.id}`, {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ ...p, price: discountedPrice })
-            });
-            return response.json();
+            return await dataService.updateProduct(p.id, { ...p, price: discountedPrice });
           }));
           
           const newProducts = products.map(p => {
@@ -265,12 +250,7 @@ export function Products() {
 
       try {
         const createdProducts = await Promise.all(newProductsData.map(async (data) => {
-          const response = await fetch('/api/products', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-          return response.json();
+          return await dataService.addProduct(data);
         }));
         
         setProducts([...products, ...createdProducts]);

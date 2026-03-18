@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/src/components/ui/Badge";
 import { Button } from "@/src/components/ui/Button";
 import { Edit, Plus, Search, Trash2, ShieldCheck, X, AlertCircle } from "lucide-react";
+import { dataService } from "../services/dataService";
 
 interface StaffMember {
   id: string;
@@ -67,8 +68,7 @@ export function Staff() {
 
   const fetchStaff = async () => {
     try {
-      const response = await fetch('/api/staff');
-      const data = await response.json();
+      const data = await dataService.getStaff();
       setStaff(data);
     } catch (error) {
       console.error('Error fetching staff:', error);
@@ -84,7 +84,7 @@ export function Staff() {
       message: "Are you sure you want to remove this staff member? This action cannot be undone.",
       onConfirm: async () => {
         try {
-          await fetch(`/api/staff/${id}`, { method: 'DELETE' });
+          await dataService.deleteStaff(id);
           setStaff(staff.filter(s => s.id !== id));
           setConfirmModal(prev => ({ ...prev, isOpen: false }));
         } catch (error) {
@@ -115,20 +115,10 @@ export function Staff() {
     e.preventDefault();
     try {
       if (editingStaff) {
-        const response = await fetch(`/api/staff/${editingStaff.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const updated = await response.json();
+        const updated = await dataService.updateStaff(editingStaff.id, formData);
         setStaff(staff.map(s => s.id === updated.id ? updated : s));
       } else {
-        const response = await fetch('/api/staff', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const created = await response.json();
+        const created = await dataService.addStaff(formData);
         setStaff([...staff, created]);
       }
       setIsModalOpen(false);

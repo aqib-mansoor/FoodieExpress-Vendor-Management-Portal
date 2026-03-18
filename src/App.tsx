@@ -4,6 +4,7 @@
  */
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { Layout } from "./components/Layout";
 import { Dashboard } from "./pages/Dashboard";
 import { Orders } from "./pages/Orders";
@@ -26,6 +27,10 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  useEffect(() => {
+    document.title = "FoodieExpress | Vendor Portal";
+  }, []);
+
   return (
     <AuthProvider>
       <Router>

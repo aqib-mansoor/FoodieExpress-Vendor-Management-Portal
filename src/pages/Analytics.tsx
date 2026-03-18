@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/Ca
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis, LineChart, Line } from "recharts";
 import { Download, TrendingUp, Clock } from "lucide-react";
 import { Button } from "@/src/components/ui/Button";
+import { dataService } from "../services/dataService";
 
 interface SalesData {
   name: string;
@@ -32,8 +33,7 @@ export function Analytics() {
 
   const fetchAnalytics = async () => {
     try {
-      const response = await fetch('/api/analytics');
-      const data = await response.json();
+      const data = await dataService.getAnalytics();
       setSalesData(data.salesData);
       setTopProducts(data.topProducts);
       setPeakHoursData(data.peakHoursData);
